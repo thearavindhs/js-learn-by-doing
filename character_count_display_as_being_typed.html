@@ -36,14 +36,14 @@
 const count = document.querySelector('#character-count');
 
 const increaseCounter = () => {
-        let currentCount = parseInt(count.textContent);
-        const newCount = (currentCount += 1);
+        const currentCount = parseInt(count.textContent);
+        let newCount = currentCount + 1;
         count.textContent = newCount;
 };
 
 const decreaseCounter = () => {
         const currentCount = parseInt(count.textContent);
-        const newCount = currentCount - 1;
+        let newCount = currentCount - 1;
         if (newCount >= 0) {
                 count.textContent = newCount;
         } else {
