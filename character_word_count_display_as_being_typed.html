@@ -42,7 +42,8 @@
 			text.addEventListener('input', function () {
         // Display the characters count
 			        charCount.textContent = text.value.length;
-			        wordCount.textContent = text.value.split(' ').length;
+			        // Display the word count
+			        wordCount.textContent = text.value.trim().split(/\s+/).length;
 			});
 		</script>
 	</body>
