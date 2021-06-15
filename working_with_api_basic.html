@@ -35,40 +35,27 @@ const updateData = function (msg) {
               data.innerText = msg;
       };
 
-fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')
-        .then(function (response) {
-                // The API call was successful
-                // (wait, it was?)
-                console.log(response.status);
-                return response.json();
-        })
-        .then(function (data) {
-                // This is the JSON from our response
-                updateData(data);
-        })
-        .catch(function (error) {
-                // There was an error
-                console.warn(error);
-        });
+function getQuote() {
+        fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')
+                .then(function (response) {
+                        // The API call was successful
+                        // (wait, it was?)
+                        return response.json();
+                })
+                .then(function (data) {
+                        // This is the JSON from our response
+                        updateData(data);
+                })
+                .catch(function (error) {
+                        // There was an error
+                        console.warn(error);
+                });
+      }
+
+getQuote();
 
 if (btn) {
-        btn.addEventListener('click', function () {
-                fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')
-                        .then(function (response) {
-                                // The API call was successful
-                                // (wait, it was?)
-                                console.log(response.status);
-                                return response.json();
-                        })
-                        .then(function (data) {
-                                // This is the JSON from our response
-                                updateData(data);
-                        })
-                        .catch(function (error) {
-                                // There was an error
-                                console.warn(error);
-                        });
-        });
+        btn.addEventListener('click', getQuote);
 }
     </script>
   </body>
