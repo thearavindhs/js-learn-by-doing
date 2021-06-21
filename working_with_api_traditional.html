@@ -46,7 +46,7 @@ function getQuote() {
                 })
                 .then(function (data) {
                         // This is the JSON from our response
-                              if (quotes.includes(data)) {
+                              if (quotes.includes(data[0])) {
                                       getQuote();
                         } else if (quotes.length <= 49) {
                                       quotes.push(data[0]);
