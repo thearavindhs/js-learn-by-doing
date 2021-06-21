@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Random Ron</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style type="text/css">
+      body {
+        margin: 0 auto;
+        max-width: 40em;
+        width: 88%;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>Random Ron</h1>
+
+    <blockquote id="insert-data"></blockquote>
+
+    <p>
+      <button id="get-quote">More Ron</button>
+    </p>
+
+
+    <script>
+      // Your code goes here...
+
+const data = document.querySelector('#insert-data');
+
+const btn = document.querySelector('#get-quote');
+
+const updateData = function (msg) {
+              data.innerText = msg;
+      };
+
+const quotes = [];
+
+function getQuote() {
+        fetch('https://ron-swanson-quotes.herokuapp.com/v2/quotes')
+                .then(function (response) {
+                        // The API call was successful
+                        // (wait, it was?)
+                        return response.json();
+                })
+                .then(function (data) {
+                        // This is the JSON from our response
+                              if (quotes.includes(data)) {
+                                      getQuote();
+                        } else if (quotes.length <= 49) {
+                                      quotes.push(data[0]);
+                                updateData(data[0]);
+                              } else {
+                                quotes.shift();
+                                      quotes.push(data[0]);
+                                updateData(data[0]);
+                              }
+                })
+                .catch(function (error) {
+                        // There was an error
+                        console.warn(error);
+                });
+      }
+
+getQuote();
+
+if (btn) {
+        btn.addEventListener('click', getQuote);
+}
+    </script>
+  </body>
+</html>
