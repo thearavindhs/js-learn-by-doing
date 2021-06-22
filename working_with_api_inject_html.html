@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dragon Trainer Monthly</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style type="text/css">
+      body {
+        margin: 0 auto;
+        max-width: 40em;
+        width: 88%;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>Dragon Trainer Monthly</h1>
+
+    <div id="app"></div>
+
+    <script>
+      // Your code goes here...
+const app = document.querySelector('#app');
+
+let articles = [];
+
+let html = '';
+
+async function getQuote() {
+              try {
+                      const response = await fetch('https://vanillajsacademy.com/api/dragons.json');
+
+                      if (!response.ok) {
+                              throw new Error('Something went wrong.');
+                      }
+
+                      const data = await response.json();
+
+                      if (!data) {
+                              throw new Error('No data.');
+                      }
+
+                      articles = data.articles;
+
+                      for (const article of articles) {
+                              html += `<li>${article.article}</li>`;
+                      }
+
+                      app.innerHTML = `<ul>${html}</ul>`;
+              } catch (error) {
+                      throw new Error('something wrong');
+              }
+}
+
+getQuote();
+    </script>
+  </body>
+</html>
