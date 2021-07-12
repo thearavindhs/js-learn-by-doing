@@ -1,0 +1,11 @@
+async function getData () {
+let responses = await Promise.all([
+fetch('https://jsonplaceholder.typicode.com/posts'),
+fetch('https://jsonplaceholder.typicode.com/users')
+]);
+let data = await Promise.all(responses.map(function (response) {
+return response.json();
+}));
+console.log(data);
+}
+getData();

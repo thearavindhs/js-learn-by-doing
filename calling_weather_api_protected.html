@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Weather App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style type="text/css">
+    body {
+      margin: 0 auto;
+      max-width: 30em;
+      text-align: center;
+      width: 88%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Weather App</h1>
+
+  <div id="city">Checking your current city...</div>
+  <div id="app">Checking the weather near you...</div>
+
+  <script>
+    const city = document.getElementById('city');
+    const weather = document.getElementById('app');
+
+    const updateCard = (data) => {
+      city.innerText = data.name;
+      weather.innerText = data.weather[0].description;
+    };
+
+    const API_KEY = 'key';
+
+    const fetchWeatherByCoordinates = (coordinates) => {
+      fetch(
+        `http://api.openweathermap.org/data/2.5/weather?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${API_KEY}`
+      )
+        .then((response) => response.json())
+        .then(updateCard);
+    };
+
+    const fetchCurrentPositionWeather = () => {
+      navigator.geolocation.getCurrentPosition((data) => {
+        fetchWeatherByCoordinates({ lat: data.coords.latitude, lon: data.coords.longitude });
+      });
+    };
+
+    fetchCurrentPositionWeather();
+  </script>
+</body>
+
+</html>
